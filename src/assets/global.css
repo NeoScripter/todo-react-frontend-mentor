@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Thin";
+    src: url(./fonts/JosefinSans-Thin.woff2) format("woff2"), url(./fonts/JosefinSans-Thin.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Regular";
+    src: url(./fonts/JosefinSans-Regular.woff2) format("woff2"), url(./fonts/JosefinSans-Regular.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Bold";
+    src: url(./fonts/JosefinSans-Bold.woff2) format("woff2"), url(./fonts/JosefinSans-Bold.woff) format("woff");
+}
+
+.ff-regular {
+    font-family: "Regular";
+}
+
+.ff-bold {
+    font-family: "Bold";
+}
+
+html {
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-x: clip;
+    font-family: "Regular";
+    position: relative;
+    min-height: 100vh;
+}
+
+.bg-overlay {
+    position: absolute;
+    inset: 0 0 auto 0;
+    background-image: url(images/bg-desktop-light.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    z-index: -1;
+}
+
