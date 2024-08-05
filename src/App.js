@@ -1,8 +1,15 @@
+import React, { useState, useEffect } from 'react';
 import moon from "./assets/images/icon-moon.svg";
 import CreateTodo from "./components/CreateTodo";
 import DisplayTodos from "./components/DisplayTodos";
 
 function App() {
+    const [switcher, setSwitcher] = useState(false);
+
+    function refresh() {
+        setSwitcher(prev => !prev);
+    }
+    useEffect(() => {}, [switcher]);
     return (
         <div className="App">
             <div className="bg-overlay h-52 md:h-80"></div>
@@ -14,8 +21,8 @@ function App() {
                     </div>
                 </header>
                 <main className="pb-10 md:pb-16">
-                    <CreateTodo />
-                    <DisplayTodos />
+                    <CreateTodo refresh={refresh} />
+                    <DisplayTodos refresh={refresh} />
                 </main>
                 <p className="text-center text-gray-400 text-sm">Drag and drop to reorder list</p>
             </div>

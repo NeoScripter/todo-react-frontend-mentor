@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import dataHandler from "../functions/DataHandler";
 import circle from "./../assets/images/circle.svg";
 
-function CreateTodo() {
+function CreateTodo({ refresh }) {
     const [currentInput, setCurrentInput] = useState("");
 
     function handleClick() {
         dataHandler.addTodo(currentInput);
         setCurrentInput("");
+        refresh();
     }
 
     return (
