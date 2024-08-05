@@ -3,7 +3,23 @@ class DataHandler {
     getTodos() {
         const storedTodos = localStorage.getItem('storedTodos');
         if (!storedTodos) {
-            const initialTodos = [];
+            const initialTodos = [
+                {
+                    content: "Walk the dog",
+                    finished: false,
+                    index: 0
+                },
+                {
+                    content: "Water the plant",
+                    finished: true,
+                    index: 1
+                },
+                {
+                    content: "Do the groceries",
+                    finished: false,
+                    index: 2
+                }
+            ];
             localStorage.setItem('storedTodos', JSON.stringify(initialTodos));
             return initialTodos;
         }
