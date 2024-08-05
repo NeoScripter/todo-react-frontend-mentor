@@ -10,7 +10,7 @@ class DataHandler {
         return JSON.parse(storedTodos);
     }
 
-    getUnfinishedTodos() {
+    getActiveTodos() {
         const storedTodos = this.getTodos();
         return storedTodos.filter(todo => todo.finished !== true);
     }

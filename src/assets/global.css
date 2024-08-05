@@ -17,6 +17,121 @@
     src: url(./fonts/JosefinSans-Bold.woff2) format("woff2"), url(./fonts/JosefinSans-Bold.woff) format("woff");
 }
 
+:root {
+    --body-bg: #FAFAFA;
+    --field-bg: #fff;
+    --box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
+    --new-todo-text: #393A4B;
+    --active-todo-text: #494C6B;
+    --finished-todo-text: #D1D2DA;
+    --bottom-color: #9495A5;
+    --border-color: #E3E4F1;
+}
+
+:root:has(#dark:checked) {
+    --body-bg: #171823;
+    --field-bg: #25273D;
+    --box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.50);
+    --new-todo-text: #C8CBE7;
+    --active-todo-text: #C8CBE7;
+    --finished-todo-text: #4D5067;
+    --bottom-color: #5B5E7E;
+    --border-color: #393A4B;
+}
+
+:root:has(#light:checked) {
+    --body-bg: #FAFAFA;
+    --field-bg: #fff;
+    --box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
+    --new-todo-text: #393A4B;
+    --active-todo-text: #494C6B;
+    --finished-todo-text: #D1D2DA;
+    --bottom-color: #9495A5;
+    --border-color: #E3E4F1;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-bg: #171823;
+        --field-bg: #25273D;
+        --box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.50);
+        --new-todo-text: #C8CBE7;
+        --active-todo-text: #C8CBE7;
+        --finished-todo-text: #4D5067;
+        --bottom-color: #5B5E7E;
+        --border-color: #393A4B;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --body-bg: #FAFAFA;
+        --field-bg: #fff;
+        --box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
+        --new-todo-text: #393A4B;
+        --active-todo-text: #494C6B;
+        --finished-todo-text: #D1D2DA;
+        --bottom-color: #9495A5;
+        --border-color: #E3E4F1;
+    }
+}
+
+
+.controls__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 2em;
+}
+
+input[type="radio"] {
+    appearance: none;
+    position: absolute;
+    right: 9999px;
+}
+
+.field-bg {
+    background-color: var(--field-bg);
+}
+
+.box-shadow {
+    box-shadow: var(--box-shadow);
+}
+
+.new-todo-text {
+    color: var(--new-todo-text);
+}
+
+.active-todo-text {
+    color: var(--active-todo-text);
+}
+
+.finished-todo-text {
+    color: var(--finished-todo-text);
+}
+
+.bottom-color {
+    color: var(--bottom-color);
+}
+
+.bottom-color:is(:hover, :focus-visible, :active) {
+    color: var(--active-todo-text);
+}
+
+.border-color {
+    border-color: var(--border-color);
+}
+
+.theme-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.theme-label:has(input[type="radio"]:checked) {
+    display: none;
+}
+
 .ff-regular {
     font-family: "Regular";
 }
@@ -36,22 +151,32 @@ body {
     font-family: "Regular";
     position: relative;
     min-height: 100vh;
+    background-color: var(--body-bg);
+    transition: all 0.3s ease-in-out;
 }
 
 .bg-overlay {
     position: absolute;
     inset: 0 0 auto 0;
-    background-image: url(images/bg-desktop-light.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
     z-index: -1;
+    transition: background-image 0.3s ease-in-out;
 }
 
 .box-sh {
     box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
 }
 
-.active-todo-tx {
-    color: #494C6B;
+.active-section {
+    color: #3A7CFD;
+}
+
+.animatable {
+    transition: scale 0.3s ease;
+}
+
+.animatable:is(:hover, :focus-visible, :active) {
+    scale: 1.4;
 }

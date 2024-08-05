@@ -1,38 +1,45 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import dataHandler from "../functions/DataHandler";
-import circle from "./../assets/images/circle.svg";
+import whiteCircle from "./../assets/images/circle-white.svg";
+import blackCircle from "./../assets/images/circle-black.svg";
 import completed from "./../assets/images/completed.svg";
 import cross from "./../assets/images/icon-cross.svg";
 
-function DisplayTodos({ refresh }) {
+function DisplayTodos({ refresh, currentSection, theme }) {
     const dragItem = useRef();
     const dragOverItem = useRef();
 
-    let todos = dataHandler.getTodos();
 
-    function handleDragStart (index) {
+    let todos;
+    switch (currentSection) {
+        case "All":
+            todos = dataHandler.getTodos();
+            break;
+        case "Active":
+            todos = dataHandler.getActiveTodos();
+            break;
+        default:
+            todos = dataHandler.getCompletedTodos();
+    }
+
+    function handleDragStart(index) {
         dragItem.current = index;
-    };
+    }
 
     function handleDragEnter(index) {
         dragOverItem.current = index;
-    };
+    }
 
-    function handleDragEnd () {
+    function handleDragEnd() {
         if (dragOverItem.current !== null && dragItem.current !== null && dragItem.current !== dragOverItem.current) {
             handleRearrangeTodos(dragItem.current, dragOverItem.current);
         }
         dragItem.current = null;
         dragOverItem.current = null;
-    };
+    }
 
     function handleStatusChange(index) {
         dataHandler.markComplete(index);
-        refresh();
-    }
-
-    function handleClearCompleted() {
-        dataHandler.deleteCompletedTodos();
         refresh();
     }
 
@@ -41,20 +48,19 @@ function DisplayTodos({ refresh }) {
         refresh();
     }
 
-    function handleRearrangeTodos (sourceIndex, destinationIndex) {
+    function handleRearrangeTodos(sourceIndex, destinationIndex) {
         dataHandler.rearrangeTodos(sourceIndex, destinationIndex);
         refresh();
-    };
+    }
 
-    const unfinishedTodos = dataHandler.getUnfinishedTodos();
     return (
-        <div className="box-sh mb-4 md:mb-6 rounded z-10 bg-white">
+        <div className="box-shadow rounded-t z-10 field-bg">
             {todos.map((todo, index) => {
                 return (
                     <div
                         key={index}
-                        className={`w-full py-3.5 px-5 flex items-center gap-3 border-b border-gray-300 ${
-                            todo.finished ? "line-through text-gray-300" : "active-todo-tx"
+                        className={`w-full py-3.5 px-5 flex items-center gap-3 border-b border-color ${
+                            todo.finished ? "line-through finished-todo-text" : "active-todo-text"
                         }`}
                         draggable
                         onDragStart={() => handleDragStart(todo.index)}
@@ -62,10 +68,10 @@ function DisplayTodos({ refresh }) {
                         onDragEnd={handleDragEnd}
                     >
                         <img
-                            src={todo.finished ? completed : circle}
+                            src={todo.finished ? completed : (theme === 'light' ? whiteCircle : blackCircle)}
                             alt="white circle"
                             className="w-6 h-6 cursor-pointer"
-                            onClick={() => handleStatusChange(index)}
+                            onClick={() => handleStatusChange(todo.index)}
                         />
                         <p className="text-sm md:text-lg">{todo.content}</p>
                         <img
@@ -77,12 +83,6 @@ function DisplayTodos({ refresh }) {
                     </div>
                 );
             })}
-            <div className="w-full py-3.5 px-5 flex item-center gap-3 justify-between text-sm  text-gray-400">
-                <div>
-                    {unfinishedTodos.length} {unfinishedTodos.length === 1 ? "item" : "items"} left
-                </div>
-                <button onClick={() => handleClearCompleted()}>Clear completed</button>
-            </div>
         </div>
     );
 }
